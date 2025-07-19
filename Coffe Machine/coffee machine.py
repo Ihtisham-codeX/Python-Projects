@@ -86,5 +86,5 @@ while True:
         else:
             print("Ingredients Not Enough")
     else:
-        print("Not Enough Amount")
+        print("Not Enough Amount. Money Refunded")
 
