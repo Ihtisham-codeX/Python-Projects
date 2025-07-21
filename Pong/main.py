@@ -56,8 +56,14 @@ screen.onkeypress(paddle_2.move_down , "Down")
 # -------------------------- Game Loop  --------------------------
 while True:
     screen.update()
-    ball.move_NE()
+    ball.move_TL()
     time.sleep(0.04)
+    if ball.Lower_Boundary_Collision() or ball.Upper_Boundary_Collision():
+        break
+    x1 , y1 = paddle_1.position()
+    x2 , y2 = paddle_2.position()
+    if ball.Paddle_Collision(x2 , y2) or ball.Paddle_Collision(x1 , y1):
+        break
 
 
 # Exit On Click
