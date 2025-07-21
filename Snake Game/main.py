@@ -18,6 +18,7 @@ screen.onkey(snake.up , "Up")
 screen.onkey(snake.down , "Down")
 screen.onkey(snake.left , "Left")
 screen.onkey(snake.right , "Right")
+
 while True:
     screen.update()
     time.sleep(0.1)
@@ -26,12 +27,15 @@ while True:
         food.refresh()
         snake.extend()
         score.increase_score()
-    if snake.head.xcor() > 290 or snake.head.xcor() < -300 or snake.head.ycor() > 290 or snake.head.ycor() < -290 or (snake.head.position() == snake.tail.position()):
+    if snake.head.xcor() > 290 or snake.head.xcor() < -300 or snake.head.ycor() > 290 or snake.head.ycor() < -290 :
         print("Game Over !")
         break
-
+    if snake.check_tail_contact():
+        print("Game Over !")
+        break
 score.game_end()
 screen.exitonclick()
+
 
 
 

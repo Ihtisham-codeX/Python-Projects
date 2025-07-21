@@ -11,8 +11,6 @@ class Snake:
         self.segments = []
         self.create_snake()
         self.head = self.segments[0]
-        self.tail = self.segments[-1]
-
 
     def create_snake(self):
         for position in  STARTING_POSITION:
@@ -50,4 +48,9 @@ class Snake:
         if self.head.heading() != LEFT:
             self.head.setheading(RIGHT)
 
+    def check_tail_contact(self):
+        for i in self.segments[1:]:
+            if self.head.distance(i) < 1:
+                return True
+        return False
 
