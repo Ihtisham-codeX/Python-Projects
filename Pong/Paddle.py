@@ -9,7 +9,6 @@ class Paddle(Turtle):
         self.shape("square")
         self.penup()
         self.goto(x,y)
-        self.color("white")
         self.shapesize(stretch_len= 1 , stretch_wid= 5)
 
     def move_up(self):

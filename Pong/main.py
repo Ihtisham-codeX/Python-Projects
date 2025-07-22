@@ -29,10 +29,12 @@ for dot in range(60):
 # Making The player 1 Paddle
 
 paddle_1 = Paddle.Paddle(-483,0)
+paddle_1.color("blue")
 
 # Making Player 2 Paddle
 
 paddle_2 = Paddle.Paddle(470,0)
+paddle_2.color("red")
 
 # Adding Score On Top
 
@@ -54,17 +56,56 @@ screen.onkeypress(paddle_2.move_up , "Up")
 screen.onkeypress(paddle_2.move_down , "Down")
 
 # -------------------------- Game Loop  --------------------------
+ball.move_TR()
+current_bounce = 2
+winner = 0
 while True:
     screen.update()
-    ball.move_TL()
     time.sleep(0.04)
+    # ------ Giving Current Bounce , Taking Two Bounces That Can Be Executed
+    possible_bounce_1 , possible_bounce_2 = ball.Bounce(current_bounce)
+    # ------
     if ball.Lower_Boundary_Collision() or ball.Upper_Boundary_Collision():
-        break
+        current_bounce = possible_bounce_1
+    # ------
     x1 , y1 = paddle_1.position()
     x2 , y2 = paddle_2.position()
+    # ------
     if ball.Paddle_Collision(x2 , y2) or ball.Paddle_Collision(x1 , y1):
+        current_bounce = possible_bounce_2
+    # ------
+    if ball.Right_Boundary_Collision():
+        Score.increase_p2_score()
+        ball.Refresh_Ball()
+    # ------
+    if ball.Left_Boundary_Collision():
+        Score.increase_p1_score()
+        ball.Refresh_Ball()
+    # ------
+    if current_bounce == 1:
+        ball.move_TR()
+    if current_bounce == 2:
+        ball.move_TL()
+    if current_bounce == 3:
+        ball.move_BL()
+    if current_bounce == 4:
+        ball.move_BR()
+    # ------
+    if Score.p1_score == 5:
+        winner = 1
+        break
+    if Score.p2_score == 5:
+        winner = 2
         break
 
 
-# Exit On Click
-screen.exitonclick()
+if winner == 2:
+    Score.show_winner_text("blue", "BLUE WINS!")
+    screen.update()  # because tracer(0)
+    screen.exitonclick()
+
+if winner == 1:
+    Score.show_winner_text("red", "RED WINS!")
+    screen.update()
+    screen.exitonclick()
+

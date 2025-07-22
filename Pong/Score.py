@@ -21,4 +21,11 @@ class Score(Turtle):
         self.clear()
         self.write(f"{self.p2_score} : Score : {self.p1_score}", align="center", font=("Arial", 24, "normal"))
 
+    def show_winner_text(self , color_name, text):
+        writer = Turtle()
+        writer.hideturtle()
+        writer.penup()
+        writer.color(color_name)
+        writer.goto(0, 0)
+        writer.write(text, align="center", font=("Courier", 36, "bold"))
 
