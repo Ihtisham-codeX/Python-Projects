@@ -44,24 +44,13 @@ class Ball(Turtle):
         if self.xcor() <= -500:
             return True
         return False
-    # --------------- Paddle Collision Check Functions For Ball --------------
 
-    def Paddle_Collision(self , paddle_x , paddle_y ):
-        paddle_width = 20
-        paddle_length = 90
-        ball_x , ball_y = self.position()
-        # checking if the ball x coordinate is in the range of paddle x coordinate
-        # if abs(ball_x-paddle_x) <= (paddle_width/2) :
-        if paddle_x - paddle_width /2 <= ball_x <= paddle_x + paddle_width:
-            # checking if the ball y coordinate is in the range of paddle y coordinate
-            if paddle_y - paddle_length/2 <= ball_y <= paddle_y + paddle_length:
-                return True
-        return False
     # --------- Making a function that tells which side the ball bounces ------
 
     def Bounce(self , Prev_Bounce):
         if Prev_Bounce == 1:
-            return 4 , 2
+            #      |-> when collides with walls
+            return 4 , 2 # -> when collides with paddles
         elif Prev_Bounce == 2:
             return 3 , 1
         elif Prev_Bounce == 3:

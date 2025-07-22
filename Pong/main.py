@@ -62,26 +62,34 @@ winner = 0
 while True:
     screen.update()
     time.sleep(0.04)
+
     # ------ Giving Current Bounce , Taking Two Bounces That Can Be Executed
     possible_bounce_1 , possible_bounce_2 = ball.Bounce(current_bounce)
-    # ------
+
+    # ------Setting Current Bounce if collides with wall
     if ball.Lower_Boundary_Collision() or ball.Upper_Boundary_Collision():
         current_bounce = possible_bounce_1
-    # ------
+
+    # ------ Coordinates of paddles
     x1 , y1 = paddle_1.position()
     x2 , y2 = paddle_2.position()
-    # ------
-    if ball.Paddle_Collision(x2 , y2) or ball.Paddle_Collision(x1 , y1):
+
+    # ------ Setting Current Bounce if Collides with paddle
+    if ball.distance(paddle_2)<50 and ball.xcor() > 440 or ball.distance(paddle_1) < 50 and ball.xcor() < -453:
         current_bounce = possible_bounce_2
-    # ------
+
+    # ------ Increase Score if Collides with right boundary
     if ball.Right_Boundary_Collision():
         Score.increase_p2_score()
         ball.Refresh_Ball()
-    # ------
+
+
+    # ------ Increase Score If Collides With Left Boundary
     if ball.Left_Boundary_Collision():
         Score.increase_p1_score()
         ball.Refresh_Ball()
-    # ------
+
+    # ------ Moving The Ball According To Current Bounce
     if current_bounce == 1:
         ball.move_TR()
     if current_bounce == 2:
@@ -90,7 +98,8 @@ while True:
         ball.move_BL()
     if current_bounce == 4:
         ball.move_BR()
-    # ------
+
+    # ------ Declaring Winner Who Scores 5 first
     if Score.p1_score == 5:
         winner = 1
         break
@@ -101,11 +110,13 @@ while True:
 
 if winner == 2:
     Score.show_winner_text("blue", "BLUE WINS!")
+    ball.hideturtle()
     screen.update()  # because tracer(0)
     screen.exitonclick()
 
 if winner == 1:
     Score.show_winner_text("red", "RED WINS!")
+    ball.hideturtle()
     screen.update()
     screen.exitonclick()
 
